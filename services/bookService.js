@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Book, Author } = require('../models');
 
 exports.createBook = async (bookData) => {
@@ -36,4 +37,19 @@ exports.getBooks = async (page = 1, pageSize = 10, title = '') => {
     currentPage: page,
     books: books.rows,
   };
+};
+
+exports.getBookById = async (id) => {
+  const book = await Book.findOne({
+    where: { id },
+    include: [
+      {
+        model: Author,
+        as: 'author',
+        attributes: ['id', 'name'],
+      }
+    ],
+  });
+
+  return book;
 };

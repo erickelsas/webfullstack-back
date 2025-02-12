@@ -9,22 +9,20 @@ exports.createAuthor = async (authorData) => {
   return author;
 };
 
-exports.getAuthorsByName = async (name) => {
-  if (!name) {
-    throw new Error('Nome do autor é necessário para a busca');
+
+exports.getAuthorById = async (id) => {
+  if (!id) {
+    throw new Error('ID do autor é necessário para a busca');
   }
 
-  const authors = await Author.findAll({
-    where: {
-      name: {
-        [Sequelize.Op.iLike]: `%${name}%`,
-      }
-    }
-  });
+  const author = await Author.findByPk(id);
 
-  return authors;
+  if (!author) {
+    throw new Error('Autor não encontrado');
+  }
+
+  return author;
 };
-
 exports.getAllAuthors = async () => {
   const authors = await Author.findAll();
   return authors;

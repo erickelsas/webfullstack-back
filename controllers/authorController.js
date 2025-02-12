@@ -10,13 +10,21 @@ exports.createAuthor = async (req, res) => {
   }
 };
 
-exports.getAuthorsByName = async (req, res) => {
+exports.getAuthorById = async (req, res) => {
   try {
-    const { name } = req.query;
-    const authors = await authorService.getAuthorsByName(name);
-    res.status(200).json(authors);
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: 'Author ID is required' });
+    }
+
+    const author = await authorService.getAuthorById(id);
+    if (!author) {
+      return res.status(404).json({ message: 'Author not found' });
+    }
+
+    res.status(200).json(author);
   } catch (err) {
-    res.status(500).json({ message: 'Error fetching authors', error: err.message });
+    res.status(500).json({ message: 'Error fetching author by ID', error: err.message });
   }
 };
 

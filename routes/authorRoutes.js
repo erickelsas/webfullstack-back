@@ -4,7 +4,7 @@ const authorController = require('../controllers/authorController');
 
 router.post('/', authorController.createAuthor);
 
-router.get('/search', authorController.getAuthorsByName);
+router.get('/:id', authorController.getAuthorById);
 
 router.get('/', authorController.getAllAuthors);
 
