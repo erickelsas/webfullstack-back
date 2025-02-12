@@ -5,6 +5,7 @@ const { sequelize } = require('./models');
 const express = require('express');
 
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const { userRoutes, bookRoutes, authorRoutes, installRoutes } = require('./routes');
 const auth = require('./middlewares/auth');
@@ -12,6 +13,7 @@ const auth = require('./middlewares/auth');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/users', userRoutes);
 app.use('/books', auth.authenticateToken, bookRoutes);
