@@ -1,5 +1,4 @@
 const { Sequelize } = require('sequelize');
-
 const config = require('../config/config');
 const AuthorModel = require("./Author");
 const BookModel = require("./Book");
@@ -10,18 +9,19 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
     dialect: 'postgres',
     port: config.port,
     logging: console.log,
-  });
+});
 
-  const User = UserModel(sequelize, Sequelize.DataTypes);
-  const Author = AuthorModel(sequelize, Sequelize.DataTypes);
-  const Book = BookModel(sequelize, Sequelize.DataTypes);
+const Author = AuthorModel(sequelize, Sequelize.DataTypes);
+const Book = BookModel(sequelize, Sequelize.DataTypes);
+const User = UserModel(sequelize, Sequelize.DataTypes);
 
-  Author.hasMany(Book, { foreignKey: 'authorId' });
-  Book.belongsTo(Author, { foreignKey: 'authorId' });
+// Definindo as associações
+Author.hasMany(Book, { foreignKey: 'authorId' });
+Book.belongsTo(Author, { foreignKey: 'authorId' });
 
-  module.exports = {
-      sequelize,
-      Author,
-      User,
-      Book
-  }
+module.exports = {
+    sequelize,
+    Author,
+    User,
+    Book,
+};

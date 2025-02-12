@@ -17,21 +17,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    authorId: { // Definição da chave estrangeira authorId
+    authorId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Authors', // Referencia o modelo Author
-        key: 'id', // Refere-se ao campo 'id' da tabela Author
+        model: 'Authors',
+        key: 'id',
       },
     },
   });
 
-  // Associação de Book com Author
   Book.associate = (models) => {
     Book.belongsTo(models.Author, {
-      foreignKey: 'authorId', // Chave estrangeira
-      as: 'author',           // Alias para a associação
+      foreignKey: 'authorId',
+      as: 'author',
     });
   };
 

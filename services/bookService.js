@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const { Book, Author } = require('../models');
 
+// Função para criar um livro
 exports.createBook = async (bookData) => {
   const { title, authorId, coverUri, publish_year } = bookData;
   const book = await Book.create({
@@ -12,6 +13,7 @@ exports.createBook = async (bookData) => {
   return book;
 };
 
+// Função para listar livros com paginação
 exports.getBooks = async (page = 1, pageSize = 10, title = '') => {
   const offset = (page - 1) * pageSize;
   const limit = pageSize;
@@ -39,6 +41,7 @@ exports.getBooks = async (page = 1, pageSize = 10, title = '') => {
   };
 };
 
+// Função para obter um livro por ID
 exports.getBookById = async (id) => {
   const book = await Book.findOne({
     where: { id },
