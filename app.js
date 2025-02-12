@@ -1,0 +1,31 @@
+const config = require('./config/config');
+
+const { sequelize } = require('./models');
+
+const express = require('express');
+
+const bodyParser = require('body-parser');
+
+const { userRoutes, bookRoutes, authorRoutes, installRoutes } = require('./routes');
+const auth = require('./middlewares/auth');
+
+const app = express();
+
+app.use(bodyParser.json());
+
+app.use('/users', userRoutes);
+app.use('/books', auth.authenticateToken, bookRoutes);
+app.use('/authors', auth.authenticateToken, authorRoutes);
+app.use('/', installRoutes);
+
+sequelize.sync().then(() => {
+    console.log('Banco de dados sincronizado');
+  }).catch((error) => {
+    console.error('Erro ao sincronizar o banco de dados:', error);
+  });
+
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+})
