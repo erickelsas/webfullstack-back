@@ -12,9 +12,8 @@ exports.createBook = async (req, res) => {
 
 exports.getBooks = async (req, res) => {
   try {
-    const { page = 1, pageSize = 10 } = req.query; // Pega os parâmetros de query string
-    const result = await bookService.getBooks(parseInt(page), parseInt(pageSize));
-
+    const { page = 1, pageSize = 10, title } = req.query;
+    const result = await bookService.getBooks(parseInt(page), parseInt(pageSize), title);
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ message: 'Error fetching books', error: err.message });

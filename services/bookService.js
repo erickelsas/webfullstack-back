@@ -1,4 +1,4 @@
-const { Book } = require('../models');
+const { Book, Author } = require('../models');
 
 exports.createBook = async (bookData) => {
   const { title, authorId, coverUri, publish_year } = bookData;
@@ -11,11 +11,14 @@ exports.createBook = async (bookData) => {
   return book;
 };
 
-exports.getBooks = async (page = 1, pageSize = 10) => {
+exports.getBooks = async (page = 1, pageSize = 10, title = '') => {
   const offset = (page - 1) * pageSize;
   const limit = pageSize;
+  
+  const whereCondition = title ? { title: { [Op.iLike]: `%${title}%` } } : {};
 
   const books = await Book.findAndCountAll({
+    where: whereCondition,
     offset,
     limit,
     include: [
