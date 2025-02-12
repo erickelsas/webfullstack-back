@@ -16,10 +16,12 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
   const Author = AuthorModel(sequelize, Sequelize.DataTypes);
   const Book = BookModel(sequelize, Sequelize.DataTypes);
 
+  Author.hasMany(Book, { foreignKey: 'authorId' });
+  Book.belongsTo(Author, { foreignKey: 'authorId' });
 
-module.exports = {
-    sequelize,
-    Author,
-    User,
-    Book
-}
+  module.exports = {
+      sequelize,
+      Author,
+      User,
+      Book
+  }
