@@ -41,7 +41,6 @@ exports.getBooks = async (page = 1, pageSize = 10, title = '') => {
   };
 };
 
-// Função para obter um livro por ID
 exports.getBookById = async (id) => {
   const book = await Book.findOne({
     where: { id },

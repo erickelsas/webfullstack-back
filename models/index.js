@@ -15,9 +15,8 @@ const Author = AuthorModel(sequelize, Sequelize.DataTypes);
 const Book = BookModel(sequelize, Sequelize.DataTypes);
 const User = UserModel(sequelize, Sequelize.DataTypes);
 
-// Definindo as associações
-Author.hasMany(Book, { foreignKey: 'authorId' });
-Book.belongsTo(Author, { foreignKey: 'authorId' });
+Author.hasMany(Book, { foreignKey: 'authorId', onDelete: 'cascade', as: 'books' });
+Book.belongsTo(Author, { foreignKey: 'authorId', as: 'author' });
 
 module.exports = {
     sequelize,
