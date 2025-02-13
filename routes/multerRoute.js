@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const upload = require('../config/multer');
 
-// Middleware para tratamento de erros do multer
 const multerErrorHandler = (err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     return res.status(500).send(`Erro no upload: ${err.message}`);
