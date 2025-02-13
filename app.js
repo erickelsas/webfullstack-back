@@ -7,7 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const { userRoutes, bookRoutes, authorRoutes, installRoutes } = require('./routes');
+const { userRoutes, bookRoutes, authorRoutes, installRoutes, multerRoutes } = require('./routes');
 const auth = require('./middlewares/auth');
 
 const app = express();
@@ -19,6 +19,8 @@ app.use('/users', userRoutes);
 app.use('/books', auth.authenticateToken, bookRoutes);
 app.use('/authors', auth.authenticateToken, authorRoutes);
 app.use('/', installRoutes);
+app.use('/', multerRoutes);
+
 
 sequelize.sync().then(() => {
     console.log('Banco de dados sincronizado');

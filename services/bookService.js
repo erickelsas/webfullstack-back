@@ -28,7 +28,7 @@ exports.getBooks = async (page = 1, pageSize = 10, title = '') => {
       {
         model: Author,
         as: 'author',
-        attributes: ['id', 'name'],
+        attributes: ['id', 'name', 'photoUri'],
       }
     ],
   });
@@ -48,7 +48,7 @@ exports.getBookById = async (id) => {
       {
         model: Author,
         as: 'author',
-        attributes: ['id', 'name'],
+        attributes: ['id', 'name', 'photoUri'],
       }
     ],
   });
